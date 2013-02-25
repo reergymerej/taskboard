@@ -3,7 +3,7 @@ var http = require('http'),
 	url = require('url');
 
 //	custom modules
-var router = require('./router');
+var rest = require('./rest');
 
 var PUBLIC_DIR = './public';
 var PORT = 1887;
@@ -15,39 +15,53 @@ var server = http.createServer();
 server.on('request', function(req, res){
 
 	var responseCode,
-		requestedFile = url.parse(req.url).pathname;
+		requestedFile = url.parse(req.url).pathname,
+		data = '';
 
-	//	Should this be handled by the routes?
-	console.log(typeof router.routes[req.url] === 'function');
 
-	//	give a default page
-	if(requestedFile === '/'){
-		requestedFile = '/index.html';
-	}
+	//	collect data posted with request
+	req.on('data', function(chunk){
+		data += chunk;
+	});
 
-	//	What file are they requesting?
-	console.log('requested: ' + requestedFile);
-	
-	//	does file exist?
-	fs.exists(PUBLIC_DIR + requestedFile, function(exists){
-
-		if(exists){
-			responseCode = 200;			
-		} else {
-			responseCode = 404;
-			requestedFile = '/404.html';
+	req.on('end', function(){
+		
+		//	Should this be handled by the routes?
+		if(req.url.indexOf('/Task') === 0){
+			rest.handle(req, res, data);
+			return;
 		};
 
-		//	read the file
-		fs.readFile(PUBLIC_DIR + requestedFile, function(err, contents){
+		//	give a default page
+		if(requestedFile === '/'){
+			requestedFile = '/index.html';
+		}
 
-			//	send the response
-			res.writeHead(responseCode, {
-				// 'content-type': 'text/html'
+		//	What file are they requesting?
+		console.log('requested: ' + requestedFile);
+		
+		//	does file exist?
+		fs.exists(PUBLIC_DIR + requestedFile, function(exists){
+
+			if(exists){
+				responseCode = 200;			
+			} else {
+				responseCode = 404;
+				requestedFile = '/404.html';
+			};
+
+			//	read the file
+			fs.readFile(PUBLIC_DIR + requestedFile, function(err, contents){
+
+				//	send the response
+				res.writeHead(responseCode, {
+					// 'content-type': 'text/html'
+				});
+				res.end(contents);
 			});
-			res.end(contents);
 		});
 	});
+
 });
 
 //	start listening

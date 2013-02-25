@@ -11,11 +11,15 @@
 	"build_system": "",
 	"command_palette":
 	{
-		"height": 0.0,
+		"height": 138.0,
 		"selected_items":
 		[
+			[
+				"javas",
+				"Set Syntax: JavaScript"
+			]
 		],
-		"width": 0.0
+		"width": 392.0
 	},
 	"console":
 	{
@@ -32,6 +36,10 @@
 	},
 	"file_history":
 	[
+		"/home/jeremy/node-apps/taskboard/public/main.js",
+		"/home/jeremy/node-apps/taskboard/router.js",
+		"/home/jeremy/node-apps/taskboard/server.js",
+		"/home/jeremy/node-apps/taskboard/public/index.html",
 		"/usr/share/applications/defaults.list",
 		"/usr/share/applications/sublime.desktop"
 	],
@@ -118,6 +126,18 @@
 		"height": 0.0,
 		"selected_items":
 		[
+			[
+				"main",
+				"public/main.js"
+			],
+			[
+				"inde",
+				"public/index.html"
+			],
+			[
+				"ser",
+				"server.js"
+			]
 		],
 		"width": 0.0
 	},
@@ -133,6 +153,6 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 150.0,
+	"side_bar_width": 146.0,
 	"status_bar_visible": true
 }
